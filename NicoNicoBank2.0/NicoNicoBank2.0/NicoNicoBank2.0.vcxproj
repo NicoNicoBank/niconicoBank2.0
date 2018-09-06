@@ -186,6 +186,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Ccheckinfo.h" />
+    <ClInclude Include="Cdatechange.h" />
     <ClInclude Include="CdepositDlg.h" />
     <ClInclude Include="Cdepositinfoprint.h" />
     <ClInclude Include="class\CurrentDeposit.h" />
@@ -210,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ccheckinfo.cpp" />
+    <ClCompile Include="Cdatechange.cpp" />
     <ClCompile Include="CdepositDlg.cpp" />
     <ClCompile Include="Cdepositinfoprint.cpp" />
     <ClCompile Include="class\changeType.cpp" />

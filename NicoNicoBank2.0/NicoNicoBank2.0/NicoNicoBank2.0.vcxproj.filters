@@ -81,6 +81,9 @@
     <ClInclude Include="CwithdrawalDlg2.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Cdatechange.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NicoNicoBank2.0.cpp">
@@ -141,6 +144,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CwithdrawalDlg2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Cdatechange.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
