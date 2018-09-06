@@ -278,7 +278,13 @@ bool User::userDepositDetail(string account, vector<int>& id, vector<int>& type,
 	db.open(func.getDataBaseLocation().c_str());
 	string sql_temp = "SELECT * From Deposit where userAccount = '" + account + "';";
 	CppSQLite3Query q = db.execQuery(sql_temp.c_str());
+	//ÏÈÇå¿Õ
+	id.clear();
+	type.clear();
+	principal.clear();
+	date.clear();
 	while (!q.eof()) {
+
 		type.push_back(q.getIntField(2));
 		id.push_back(q.getIntField(0));
 		principal.push_back(q.getIntField(3));
