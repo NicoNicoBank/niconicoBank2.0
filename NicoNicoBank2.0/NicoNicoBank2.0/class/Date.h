@@ -29,6 +29,7 @@ public:
 	*/
 	int get(int type);
 	int get(int type) const;
+
 private:
 	bool IsLeapYear(int year)
 	{
