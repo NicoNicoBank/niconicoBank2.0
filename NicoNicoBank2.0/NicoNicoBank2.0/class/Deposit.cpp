@@ -129,7 +129,7 @@ int Deposit::drawMoney(string account, int money,const Date & now)
 		return 2;
 	}
 	if (checkCanBeTake()) {
-		string sql = "insert into WithDraw (userAccount, year, month, day, money) values ("+ account + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ");";
+		string sql = "insert into WithDraw (userAccount, year, month, day, money) values ('"+ account+ "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ");";
 		func.sqlExce(sql);
 		this->principal -= money;
 		this->save();
