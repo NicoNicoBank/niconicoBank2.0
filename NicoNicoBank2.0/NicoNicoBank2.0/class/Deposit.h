@@ -52,6 +52,7 @@ public:
 	/*
 	ĞŞ¸ÄÀûÂÊ
 	*/
+	double getAllPrincipal();
 	void setProfit(int type, double profit);
 	int getID();
 	void setID(int id);

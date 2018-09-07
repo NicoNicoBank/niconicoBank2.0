@@ -50,5 +50,9 @@ public:
 	获取即将到期的存款,传入参数为当前日期
 	*/
 	double getMoneyNeed(const Date & now);
+	/*
+	获取所有当前存款本金和
+	*/
+	double getAllPrincipal();
 };
 

@@ -94,3 +94,9 @@ double Logic::getMoneyNeed(const Date & now)
 	return deposit.getRecentEndDepoist(now);
 }
 
+double Logic::getAllPrincipal()
+{
+	Deposit deposit;
+	return deposit.getAllPrincipal();
+}
+

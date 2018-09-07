@@ -220,6 +220,20 @@ double Deposit::countProfit(const Date & now)
 	}
 }
 
+double Deposit::getAllPrincipal()
+{
+	Func func;
+	CppSQLite3DB db;
+	db.open(func.getDataBaseLocation().c_str());
+	string sql = "select * from Deposit;";
+	CppSQLite3Query q = db.execQuery(sql.c_str());
+	double sum = 0;
+	while (!q.eof()) {
+		sum += q.getFloatField(3);
+	}
+	return sum;
+}
+
 void Deposit::setProfit(int type, double profit)
 {
 	profitRate[type] = profit;
