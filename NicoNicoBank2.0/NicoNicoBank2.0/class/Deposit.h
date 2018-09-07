@@ -35,7 +35,7 @@ public:
 	2: 金额超过存款数 或 金额小于0
 	3: 无法取全额，未到期
 	*/
-	int drawMoney(string account, int money, const Date & now);
+	int drawMoney(string account, double money, const Date & now);
 	/*
 	获取近三天到期存款
 	*/

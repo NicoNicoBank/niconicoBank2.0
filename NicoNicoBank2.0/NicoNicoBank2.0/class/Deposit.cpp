@@ -121,7 +121,7 @@ bool Deposit::checkCanBeTake()
 	else return true;
 }
 
-int Deposit::drawMoney(string account, int money,const Date & now)
+int Deposit::drawMoney(string account, double money,const Date & now)
 {
 	Func func;
 	this->readData();
@@ -129,7 +129,7 @@ int Deposit::drawMoney(string account, int money,const Date & now)
 		return 2;
 	}
 	if (money == this->principal) {
-		if (this->date > now) {
+		if (this->date > now || this->type == 0) {
 			string sql = "insert into WithDraw (userAccount, year, month, day, money) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ");";
 			func.sqlExce(sql);
 			sql = "delete from Deposit where id = " + to_string(id) + ";";
