@@ -128,6 +128,18 @@ int Deposit::drawMoney(string account, int money,const Date & now)
 	if (money > principal || money < 0) {
 		return 2;
 	}
+	if (money == this->principal) {
+		if (this->date > now) {
+			string sql = "insert into WithDraw (userAccount, year, month, day, money) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ");";
+			func.sqlExce(sql);
+			sql = "delete from Deposit where id = " + to_string(id) + ";";
+			func.sqlExce(sql);
+			return 0;
+		}
+		else {
+			return 3;
+		}
+	}
 	if (checkCanBeTake()) {
 		string sql = "insert into WithDraw (userAccount, year, month, day, money) values ('"+ account+ "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ");";
 		func.sqlExce(sql);
@@ -139,7 +151,7 @@ int Deposit::drawMoney(string account, int money,const Date & now)
 		return 1;
 }
 
-int Deposit::getRecentEndDepoist(Date now)
+double Deposit::getRecentEndDepoist(Date now)
 {
 	Func func;
 	string sql = "";

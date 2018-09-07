@@ -25,7 +25,7 @@ public:
 	*/
 	bool isExist(int id);
 	/*
-	检测该账户是否可以取款, 执行前应先读取
+	检测该账户是否可以取款, 执行前应先读取,不检测是否到期
 	*/
 	bool checkCanBeTake();
 	/*
@@ -33,12 +33,13 @@ public:
 	0: 取款成功
 	1: 则说明无法取款，定期已经取过一次;
 	2: 金额超过存款数 或 金额小于0
+	3: 无法取全额，未到期
 	*/
 	int drawMoney(string account, int money, const Date & now);
 	/*
 	获取近三天到期存款
 	*/
-	int getRecentEndDepoist(Date now);
+	double getRecentEndDepoist(Date now);
 	/*
 	结算当日需要转存的所有定期，并且将第二天需要准备的金额计算返回
 	返回： 明日需提前准备金额

@@ -65,29 +65,19 @@ bool Logic::userWithDrawDetail(string account, vector<Date>& date, vector<double
 	return false;
 }
 
-bool Logic::saveMoney(string account, int type, int principal, const Date & now)
+bool Logic::saveMoney(string account, int type, double principal, const Date & now)
 {
 	Deposit deposit(account, type, principal, now);
 	deposit.save();
 	return true;
 }
 
-bool Logic::drawMoney(string account, int id, double money, string & error, const Date & now)
+int Logic::drawMoney(string account, int id, double money, string & error, const Date & now)
 {
 	Deposit deposit;
 	deposit.setID(id);
 	int result = deposit.drawMoney(account, money, now);
-	if (result == 0)
-		return true;
-	else {
-		if (result == 1) {
-			error = "该笔存款已被取过";
-		}
-		else {
-			error = "金额超过存款金额或小于0";
-		}
-		return false;
-	}
+	return result;
 }
 
 bool Logic::signInStaff(string account, string pwd, string name)
