@@ -41,7 +41,7 @@ public:
 	2: 金额超过存款数 或 金额小于0
 	3: 无法取全额，未到期
 	*/
-	int drawMoney(string account, int id, double money, string & error, const Date & now);
+	int drawMoney(string account, int id, double money, double & profit, const Date & now);
 	/*
 	注册储蓄员
 	*/
@@ -50,5 +50,9 @@ public:
 	获取即将到期的存款,传入参数为当前日期
 	*/
 	double getMoneyNeed(const Date & now);
+	/*
+	获取所有当前存款本金和
+	*/
+	double getAllPrincipal();
 };
 
