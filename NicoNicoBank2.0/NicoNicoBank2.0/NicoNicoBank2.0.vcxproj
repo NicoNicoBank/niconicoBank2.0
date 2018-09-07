@@ -200,6 +200,8 @@
     <ClInclude Include="class\Staff.h" />
     <ClInclude Include="class\User.h" />
     <ClInclude Include="CLoginDlg.h" />
+    <ClInclude Include="Copenaccount.h" />
+    <ClInclude Include="Cwithdrainfoprint.h" />
     <ClInclude Include="CwithdrawalDlg2.h" />
     <ClInclude Include="database\CppSQLite3.h" />
     <ClInclude Include="database\sqlite3.h" />
@@ -226,6 +228,8 @@
     <ClCompile Include="class\Staff.cpp" />
     <ClCompile Include="class\User.cpp" />
     <ClCompile Include="CLoginDlg.cpp" />
+    <ClCompile Include="Copenaccount.cpp" />
+    <ClCompile Include="Cwithdrainfoprint.cpp" />
     <ClCompile Include="CwithdrawalDlg2.cpp" />
     <ClCompile Include="database\CppSQLite3.cpp" />
     <ClCompile Include="database\sqlite3.c" />
