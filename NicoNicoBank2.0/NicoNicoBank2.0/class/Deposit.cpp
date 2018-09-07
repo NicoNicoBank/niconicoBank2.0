@@ -129,7 +129,9 @@ int Deposit::drawMoney(string account, double money,const Date & now)
 		return 2;
 	}
 	if (money == this->principal) {
-		if (this->date > now || this->type == 0) {
+		Date takeDate(date);
+		takeDate.addMonth(type);
+		if (takeDate > now || this->type == 0) {
 			string sql = "insert into WithDraw (userAccount, year, month, day, money) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ");";
 			func.sqlExce(sql);
 			sql = "delete from Deposit where id = " + to_string(id) + ";";
@@ -204,11 +206,18 @@ int Deposit::settlement(Date now)
 	return 0;
 }
 
-double Deposit::countProfit()
+double Deposit::countProfit(const Date & now)
 {
 	double profit_t = profitRate[this->type];
 	profit_t = (profit_t / 360) * 30 * this->type;
-	return profit_t * this->principal;
+	Date now_t(now);
+	Date takeDate(date);
+	takeDate.addMonth(type);
+	if (type == 0 || now_t > takeDate)
+		return profit_t * this->principal;
+	else {
+		return 0;
+	}
 }
 
 void Deposit::setProfit(int type, double profit)

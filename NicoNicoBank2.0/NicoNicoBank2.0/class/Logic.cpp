@@ -72,11 +72,12 @@ bool Logic::saveMoney(string account, int type, double principal, const Date & n
 	return true;
 }
 
-int Logic::drawMoney(string account, int id, double money, string & error, const Date & now)
+int Logic::drawMoney(string account, int id, double money, double & profit, const Date & now)
 {
 	Deposit deposit;
 	deposit.setID(id);
 	int result = deposit.drawMoney(account, money, now);
+	profit = deposit.countProfit(now);
 	return result;
 }
 
