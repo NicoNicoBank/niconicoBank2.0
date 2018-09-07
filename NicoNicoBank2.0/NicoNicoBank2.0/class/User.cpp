@@ -287,7 +287,7 @@ bool User::userDepositDetail(string account, vector<int>& id, vector<int>& type,
 
 		type.push_back(q.getIntField(2));
 		id.push_back(q.getIntField(0));
-		principal.push_back(q.getIntField(3));
+		principal.push_back(q.getFloatField(3));
 		date.push_back(Date(q.getIntField(4), q.getIntField(5), q.getIntField(6)));
 		q.nextRow();
 	}

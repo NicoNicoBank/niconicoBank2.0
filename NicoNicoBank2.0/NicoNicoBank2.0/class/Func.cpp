@@ -175,3 +175,149 @@ string Func::ASCII2UTF_8(string& strAsciiCode)
 	strRet = Unicode2Utf8(wstr);
 	return strRet;
 }
+
+bool Func::checkIdNumberFormat(string& IDNumber) {
+	regex reg1("[0-9]{17}([0-9Xx])", regex_constants::extended);//正则表达式，匹配18位身份证
+	smatch result;
+	return (regex_match(IDNumber, result, reg1));
+
+}
+
+bool Func::checkIDNumber(string& IDNumber) {
+	int weight[] = { 7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2 };//各数字权重
+	char validate[] = { '1','0','X','9','8','7','6','5','4','3','2' };
+	int sum = 0;
+	int mode = 0;
+	int length = IDNumber.length();
+	if (length == 18)
+	{
+		for (int i = 0; i < length - 1; i++) {
+			sum = sum + (IDNumber[i] - '0')*weight[i];
+		}
+		mode = sum % 11;
+		if (validate[mode] == IDNumber[17])
+		{
+			return true;
+		}
+	}
+
+	return false;
+
+}
+
+//传入身份证号，返回0，身份证长度不对；返回-1，身份证格式有误；返回1，身份证验证成功
+int Func::judgeIdNumber(string& IDNumber) {
+	if (checkIdNumberFormat(IDNumber)) {
+		if (checkIDNumber(IDNumber)) {
+			return 1;//身份证验证成功
+		}
+		else {
+			return -1;//身份证格式有误
+		}
+	}
+	else {
+		return 0;//身份证长度不对
+	}
+}
+
+//传入密码（字符串），返回Int型的密码强度（1-3）依次为（弱，中等，强），其中弱不可用于注册
+int Func::judgePasswordStrength(string password) {
+	int i, score;
+	score = 0;
+	int length = password.length();
+	if (length < 6)//密码长度小于6,
+		return 1;
+
+	//字母 数字
+	int flagBig = 0, flagSmall = 0;
+	int flagNum = 0;
+	int flagOther = 0;
+
+	//判断密码中的字符数目
+	for (i = 0; i < length; i++)
+	{
+		if (password[i] >= 'a' && password[i] <= 'z')
+		{
+			flagSmall = 1;
+		}
+		else if (password[i] >= 'A' && password[i] <= 'Z')
+		{
+			flagBig = 1;
+		}
+		else if (password[i] >= '0' && password[i] <= '9')
+		{
+			flagNum = 1;
+		}
+		else
+		{
+			flagOther = 1;
+		}
+	}
+
+	if (flagNum == length)//密码为纯数字
+		return 1;
+
+	int pwdLeavel = 0;//
+
+	if (flagBig)
+		pwdLeavel++;
+	if (flagSmall)
+		pwdLeavel++;
+	if (flagOther)
+		pwdLeavel++;
+	if (flagNum)
+		pwdLeavel++;
+
+	switch (pwdLeavel) {
+	case 0:return 1;
+	case 1: return 2;
+	case 2: return 2;
+	case 3: if (length > 10)
+		return 3;
+			else return 2;
+	case 4: if (length > 10)
+		return 3;
+			else return 2;
+	}
+}
+
+
+//判断密码输入，通过返回true，否则返回false。只能包含字母，数字，及指定特殊字符 { '~', '!', '@',  '$', '%', '^', '&', '*', '(', ')' }
+bool Func::checkPwd(string str) {
+	int length = str.length();
+	char whiteList[] = { '~', '!', '@',  '$', '%', '^', '&', '*', '(', ')' };
+
+	for (int i = 0; i < length; i++) {
+		if ((str[i] >= '0'&&str[i] <= '9') || (str[i] >= 'a'&&str[i] <= 'z' || (str[i] >= 'A'&&str[i] <= 'Z')))
+			continue;
+
+		bool flag = false;
+		for (int t = 0; t < 10; t++) {
+			if (str[i] == whiteList[t]) {
+				flag = true;
+				break;
+			}
+		}
+
+		if (flag)
+			continue;
+		else
+			return false;
+	}
+	return true;
+}
+
+//检测输入的字符串，通过返回true，否则返回false。不能包含指定字符 { ' ', '#', '-',  ';'}
+bool Func::checkText(string str) {
+	int length = str.length();
+	char blackList[] = { ' ', '#', '-',  ';' };
+
+	for (int i = 0; i < length; i++) {
+		for (int t = 0; t < 4; t++) {
+			if (str[i] == blackList[t])
+				return false;
+		}
+	}
+
+	return true;
+}
