@@ -33,11 +33,15 @@ public:
 	/*
 	存款,返回值为是否存款成功
 	*/
-	bool saveMoney(string account, int type, int principal, const Date & now);
+	bool saveMoney(string account, int type, double principal, const Date & now);
 	/*
-	取款
+	取款,若返回值:
+	0: 取款成功
+	1: 则说明无法取款，定期已经取过一次;
+	2: 金额超过存款数 或 金额小于0
+	3: 无法取全额，未到期
 	*/
-	bool drawMoney(string account, int id, double money, string & error, const Date & now);
+	int drawMoney(string account, int id, double money, string & error, const Date & now);
 	/*
 	注册储蓄员
 	*/
