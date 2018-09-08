@@ -54,5 +54,18 @@ public:
 	获取所有当前存款本金和
 	*/
 	double getAllPrincipal();
+	/*
+	挂失某一账户, 输入账户密码，检测其正确性，以便于挂失
+	*/
+	bool setAccountLost(string account, string pwd, const Date & now);
+	/*
+	修改地址
+	*/
+	bool setAccountAddress(string account, string address);
+	/*
+	修改密码
+	参数为账户， 旧密码， 新密码，二次输入新密码
+	*/
+	bool setAccountPwd(string account, string oldPwd, string newPwd, string newPwd2);
 };
 

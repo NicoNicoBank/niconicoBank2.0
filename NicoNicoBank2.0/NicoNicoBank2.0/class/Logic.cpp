@@ -62,7 +62,7 @@ bool Logic::userWithDrawDetail(string account, vector<Date>& date, vector<double
 {
 	User user;
 	user.userWithDrawDetail(account, date, money);
-	return false;
+	return true;
 }
 
 bool Logic::saveMoney(string account, int type, double principal, const Date & now)
@@ -98,5 +98,32 @@ double Logic::getAllPrincipal()
 {
 	Deposit deposit;
 	return deposit.getAllPrincipal();
+}
+
+bool Logic::setAccountLost(string account, string pwd, const Date & now)
+{
+	if (verifyUser(account, pwd)) {
+		User user;
+		user.setLost(account, now);
+		return true;
+	}
+	return false;
+}
+
+bool Logic::setAccountAddress(string account, string address)
+{
+	User user;
+	user.changeAddress(account, address);
+	return true;
+}
+
+bool Logic::setAccountPwd(string account, string oldPwd, string newPwd, string newPwd2)
+{
+	if (verifyUser(account, oldPwd) && newPwd == newPwd2) {
+		User user;
+		user.changePwd(account, newPwd);
+		return true;
+	}
+	return false;
 }
 

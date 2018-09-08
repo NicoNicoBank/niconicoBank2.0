@@ -316,6 +316,20 @@ void User::cancelLost(string account)
 	func.sqlExce(sql);
 }
 
+void User::changePwd(string account, string newPwd)
+{
+	Func func;
+	string sql = "update user set password = '" + MD5(newPwd).toStr() + "' where account = '" + account + "';";
+	func.sqlExce(sql);
+}
+
+void User::changeAddress(string account, string address)
+{
+	Func func;
+	string sql = "update user set address = '" + address + "' where account = '" + account + "';";
+	func.sqlExce(sql);
+}
+
 int User::getId()
 {
 	return 0;
