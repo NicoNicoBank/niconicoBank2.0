@@ -190,6 +190,7 @@
     <ClInclude Include="Cdatechange.h" />
     <ClInclude Include="CdepositDlg.h" />
     <ClInclude Include="Cdepositinfoprint.h" />
+    <ClInclude Include="CdueDlg.h" />
     <ClInclude Include="class\CurrentDeposit.h" />
     <ClInclude Include="class\Date.h" />
     <ClInclude Include="class\Deposit.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="Cdatechange.cpp" />
     <ClCompile Include="CdepositDlg.cpp" />
     <ClCompile Include="Cdepositinfoprint.cpp" />
+    <ClCompile Include="CdueDlg.cpp" />
     <ClCompile Include="class\changeType.cpp" />
     <ClCompile Include="class\CurrentDeposit.cpp" />
     <ClCompile Include="class\Date.cpp" />
