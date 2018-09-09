@@ -225,12 +225,15 @@ double Deposit::getAllPrincipal()
 	Func func;
 	CppSQLite3DB db;
 	db.open(func.getDataBaseLocation().c_str());
-	string sql = "select * from Deposit;";
+	string sql = "select principal from Deposit;";
 	CppSQLite3Query q = db.execQuery(sql.c_str());
 	double sum = 0;
 	while (!q.eof()) {
-		sum += q.getFloatField(3);
+		sum += q.getFloatField(0);
+		q.nextRow();
 	}
+	q.finalize();
+	db.close();
 	return sum;
 }
 
