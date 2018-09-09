@@ -44,7 +44,7 @@ bool User::readData(string query)
 		sql_temp += "id = " + to_string(this->id) + ";"; 
 	}
 	if (query == "account") {
-		sql_temp += "account = " + this->account + ";";
+		sql_temp += "account = '" + this->account + "';";
 	}
 	CppSQLite3Query q = db.execQuery(sql_temp.c_str());
 	
