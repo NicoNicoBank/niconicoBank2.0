@@ -62,7 +62,7 @@ bool Logic::userWithDrawDetail(string account, vector<Date>& date, vector<double
 {
 	User user;
 	user.userWithDrawDetail(account, date, money);
-	return false;
+	return true;
 }
 
 bool Logic::saveMoney(string account, int type, double principal, const Date & now)

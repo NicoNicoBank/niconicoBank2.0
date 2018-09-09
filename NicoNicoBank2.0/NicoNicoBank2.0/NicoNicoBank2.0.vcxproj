@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -202,6 +202,7 @@
     <ClInclude Include="class\User.h" />
     <ClInclude Include="CLoginDlg.h" />
     <ClInclude Include="Copenaccount.h" />
+    <ClInclude Include="Creportloss.h" />
     <ClInclude Include="Cwithdrainfoprint.h" />
     <ClInclude Include="CwithdrawalDlg2.h" />
     <ClInclude Include="database\CppSQLite3.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="class\User.cpp" />
     <ClCompile Include="CLoginDlg.cpp" />
     <ClCompile Include="Copenaccount.cpp" />
+    <ClCompile Include="Creportloss.cpp" />
     <ClCompile Include="Cwithdrainfoprint.cpp" />
     <ClCompile Include="CwithdrawalDlg2.cpp" />
     <ClCompile Include="database\CppSQLite3.cpp" />
