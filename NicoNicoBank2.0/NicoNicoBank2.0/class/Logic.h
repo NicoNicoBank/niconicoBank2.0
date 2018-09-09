@@ -67,5 +67,9 @@ public:
 	参数为账户， 旧密码， 新密码，二次输入新密码
 	*/
 	bool setAccountPwd(string account, string oldPwd, string newPwd, string newPwd2);
+	/*
+	获取用户账户信息， IDNumber 
+	*/
+	bool getIDNumber(string account, string & IDNumber);
 };
 
