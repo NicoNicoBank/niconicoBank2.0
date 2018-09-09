@@ -2,11 +2,10 @@
 #include <iostream>
 using namespace std;
 class Date {
-	friend ostream& operator<<(ostream& _cout, const Date& date);
-	friend istream& operator>>(istream& _cin, Date& date);
 public:
-	Date(int year = 1990, int month = 1, int day = 1);
+	Date(int year = 1949, int month = 10, int day = 1);
 	Date(const Date& date);
+	//基本运算
 	Date& operator=(const Date& date);
 	Date operator+(int day);
 	Date& operator++();
@@ -19,9 +18,6 @@ public:
 	bool operator>(const Date& date);
 	bool operator<(const Date& date);
 	bool operator==(const Date& date);
-	bool operator!=(const Date& date);
-	bool operator>=(const Date& date);
-	bool operator<=(const Date& date);
 	void setDate(int year, int month, int day);
 	/*
 	获取相关值
@@ -31,18 +27,8 @@ public:
 	int get(int type) const;
 
 private:
-	bool IsLeapYear(int year)
-	{
-		return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
-	}
-	int GetDaysInMonth(int year, int month)
-	{
-		int months[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-		if (IsLeapYear(year)) {
-			months[2] = 29;
-		}
-		return months[month];
-	}
+	bool IsLeapYear(int year);
+	int GetDaysInMonth(int year, int month);
 private:
 	int _year;
 	int _month;

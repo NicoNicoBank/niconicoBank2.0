@@ -1,18 +1,6 @@
 #include "Date.h"
 
 
-ostream& operator<<(ostream& _cout, const Date& date)
-{
-	_cout << date._year << "/" << date._month << "/" << date._day;
-	return _cout;
-}
-
-istream& operator>>(istream& _cin, Date& date)
-{
-	_cin >> date._year >> date._month >> date._day;
-	return _cin;
-}
-
 Date::Date(int year, int month, int day)
 {
 	if (year >= 0 && (month >= 0 && month < 13) &&
@@ -152,26 +140,7 @@ bool  Date::operator==(const Date& date)
 	return _year == date._year && _month == date._month && _day == date._day;
 }
 
-bool  Date::operator!=(const Date& date)
-{
-	return _year != date._year || _month != date._month || _day != date._day;
-}
 
-bool  Date::operator>=(const Date& date)
-{
-	if (*this < date)
-		return false;
-	else
-		return true;
-}
-
-bool  Date::operator<=(const Date& date)
-{
-	if (*this > date)
-		return false;
-	else
-		return true;
-}
 
 void Date::setDate(int year, int month, int day)//0-year
 {
@@ -213,6 +182,20 @@ int Date::get(int type) const
 		return NULL;
 	}
 	return 0;
+}
+
+bool Date::IsLeapYear(int year)
+{
+	return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
+}
+
+int Date::GetDaysInMonth(int year, int month)
+{
+	int months[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	if (IsLeapYear(year)) {
+		months[2] = 29;
+	}
+	return months[month];
 }
 
 
