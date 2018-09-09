@@ -65,6 +65,10 @@ public:
 	修改地址
 	*/
 	void changeAddress(string account, string address);
+	/*	
+	从数据库直接获取身份证号
+	*/
+	string getIDNumberFromDatabase(string account);
 
 	int getId();
 	void setId(int _id);

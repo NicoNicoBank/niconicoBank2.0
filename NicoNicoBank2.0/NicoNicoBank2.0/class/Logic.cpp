@@ -127,3 +127,10 @@ bool Logic::setAccountPwd(string account, string oldPwd, string newPwd, string n
 	return false;
 }
 
+bool Logic::getIDNumber(string account, string & IDNumber)
+{
+	User user;
+	IDNumber = user.getIDNumberFromDatabase(account);
+	return true;
+}
+

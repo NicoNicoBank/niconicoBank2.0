@@ -262,6 +262,8 @@ void User::print(string account)
 		cout << q.getIntField(4) << "." << q.getIntField(5) << "." <<q.getIntField(6) << endl;
 		q.nextRow();
 	}
+	q.finalize();
+	db.close();
 }
 
 void User::setLost(string account,const Date & now)
@@ -328,6 +330,19 @@ void User::changeAddress(string account, string address)
 	Func func;
 	string sql = "update user set address = '" + address + "' where account = '" + account + "';";
 	func.sqlExce(sql);
+}
+
+string User::getIDNumberFromDatabase(string account)
+{
+	Func func;
+	CppSQLite3DB db;
+	db.open(func.getDataBaseLocation().c_str());
+	string sql_temp = "SELECT IDNumber From user where account = '" + account + "';";
+	CppSQLite3Query q = db.execQuery(sql_temp.c_str());
+	string IDNumber = q.getStringField(0);
+	q.finalize();
+	db.close();
+	return IDNumber;
 }
 
 int User::getId()
