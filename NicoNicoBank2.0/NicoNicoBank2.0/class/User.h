@@ -57,6 +57,15 @@ public:
 	取消挂失
 	*/
 	void cancelLost(string account);
+	/*
+	修改密码
+	*/
+	void changePwd(string account, string newPwd);
+	/*
+	修改地址
+	*/
+	void changeAddress(string account, string address);
+
 	int getId();
 	void setId(int _id);
 

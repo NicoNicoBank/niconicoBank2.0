@@ -100,3 +100,30 @@ double Logic::getAllPrincipal()
 	return deposit.getAllPrincipal();
 }
 
+bool Logic::setAccountLost(string account, string pwd, const Date & now)
+{
+	if (verifyUser(account, pwd)) {
+		User user;
+		user.setLost(account, now);
+		return true;
+	}
+	return false;
+}
+
+bool Logic::setAccountAddress(string account, string address)
+{
+	User user;
+	user.changeAddress(account, address);
+	return true;
+}
+
+bool Logic::setAccountPwd(string account, string oldPwd, string newPwd, string newPwd2)
+{
+	if (verifyUser(account, oldPwd) && newPwd == newPwd2) {
+		User user;
+		user.changePwd(account, newPwd);
+		return true;
+	}
+	return false;
+}
+
