@@ -93,6 +93,15 @@
     <ClInclude Include="CdueDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Creportloss.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Cinfochange.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Ccheckpwd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NicoNicoBank2.0.cpp">
@@ -165,6 +174,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CdueDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Creportloss.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Cinfochange.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Ccheckpwd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
