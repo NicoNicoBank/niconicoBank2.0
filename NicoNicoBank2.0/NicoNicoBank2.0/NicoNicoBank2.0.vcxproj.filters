@@ -102,6 +102,9 @@
     <ClInclude Include="Ccheckpwd.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Cstaffregist.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NicoNicoBank2.0.cpp">
@@ -183,6 +186,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Ccheckpwd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Cstaffregist.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
