@@ -1,14 +1,14 @@
 #pragma once
 #include <string>
 #include "Date.h"
-
+#include <map>
 using namespace std;
 
 class Deposit
 {
 public:
 	Deposit();
-	Deposit(string userAccount, int type, double principal, Date date);
+	Deposit(string userAccount, int type, double principal, Date date, string staffAccount);
 	Deposit(int id);
 	virtual ~Deposit();
 
@@ -35,7 +35,7 @@ public:
 	2: 金额超过存款数 或 金额小于0
 	3: 无法取全额，未到期
 	*/
-	int drawMoney(string account, double money, const Date & now);
+	int drawMoney(string account, double money, const Date & now, string staffAccount, double & profit, string & saveDate, int & type);
 	/*
 	获取近三天到期存款
 	*/
@@ -48,7 +48,7 @@ public:
 	/*
 	计算当前类中单子的利息值
 	*/
-	double countProfit(const Date & now, double money = 0);
+	double countProfit(double principal, int type, Date date, Date now);
 	/*
 	修改利率
 	*/
@@ -74,5 +74,6 @@ protected:
 	double principal;
 	Date date;	
 	int takeTimes;
+	string staffAccount;
 };
 

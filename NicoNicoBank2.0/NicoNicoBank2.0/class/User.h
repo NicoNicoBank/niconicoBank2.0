@@ -52,7 +52,7 @@ public:
 	/*
 	获取取款清单
 	*/
-	bool userWithDrawDetail(string account, vector <Date> & date, vector <double>& money);
+	bool userWithDrawDetail(string account, vector <Date> & date, vector <double>& money, vector<string> & staffAccount, vector <int> & depositID);
 	/*
 	取消挂失
 	*/

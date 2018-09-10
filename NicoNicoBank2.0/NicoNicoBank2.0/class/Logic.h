@@ -29,11 +29,11 @@ public:
 	/*
 	获取用户取款信息清单
 	*/
-	bool userWithDrawDetail(string account, vector <Date> & date, vector <double>& money);
+	bool userWithDrawDetail(string account, vector <Date> & date, vector <double>& money, vector<string> & staffAccount, vector <int> & depositID);
 	/*
 	存款,返回值为是否存款成功
 	*/
-	bool saveMoney(string account, int type, double principal, const Date & now);
+	bool saveMoney(string account, int type, double principal, const Date & now, string staffAccount);
 	/*
 	取款,若返回值:
 	0: 取款成功
@@ -41,7 +41,7 @@ public:
 	2: 金额超过存款数 或 金额小于0
 	3: 无法取全额，未到期
 	*/
-	int drawMoney(string account, int id, double money, double & profit, const Date & now);
+	int drawMoney(string account, int id, double money, const Date & now, string staffAccount, double & profit, string & saveDate, int & type);
 	/*
 	注册储蓄员
 	*/
@@ -97,6 +97,6 @@ public:
 	/*
 	计算当前可获得利息
 	*/
-	double countProfit(Date & now, int id);
+	double countProfit(double principal, int type, const Date & date, const Date & now);
 };
 

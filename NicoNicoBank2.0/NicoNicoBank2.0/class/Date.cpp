@@ -181,6 +181,11 @@ int Date::get(int type) const
 	return 0;
 }
 
+string Date::formatOut()
+{
+	return string(to_string(_year) +"-"+ to_string(_month)+ "-"+to_string(_day));
+}
+
 bool Date::checkIllegle(int year, int month, int day)
 {
 	if (year >= 0 && (month >= 0 && month < 13) &&

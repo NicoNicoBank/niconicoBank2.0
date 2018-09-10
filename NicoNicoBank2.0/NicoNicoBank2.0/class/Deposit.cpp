@@ -27,7 +27,7 @@ Deposit::Deposit()
 	this->takeTimes = 0;
 }
 
-Deposit::Deposit(string userAccount, int type, double principal, Date date)
+Deposit::Deposit(string userAccount, int type, double principal, Date date, string staffAccount)
 {
 	this->id = 0;
 	this->userAccount = userAccount;
@@ -35,6 +35,7 @@ Deposit::Deposit(string userAccount, int type, double principal, Date date)
 	this->principal = principal;
 	this->date = date;
 	this->takeTimes = 0;
+	this->staffAccount = staffAccount;
 }
 
 Deposit::Deposit(int id)
@@ -62,7 +63,7 @@ bool Deposit::save()
 	else {
 		Date end(this->date);
 		end.addMonth(this->type);
-		string sql = "insert into Deposit (userAccount, type, principal, year, month, day, takeTimes, takeYear, takeMonth, takeDay) values (";
+		string sql = "insert into Deposit (userAccount, type, principal, year, month, day, takeTimes, takeYear, takeMonth, takeDay, staffAccount) values (";
 		sql += "'" + this->userAccount + "',";
 		sql += to_string(this->type) + ",";
 		sql += to_string(this->principal) + ",";
@@ -72,7 +73,8 @@ bool Deposit::save()
 		sql += to_string(this->takeTimes) + ",";
 		sql += to_string(end.get(0)) + ",";
 		sql += to_string(end.get(1)) + ",";
-		sql += to_string(end.get(2)) + ");";
+		sql += to_string(end.get(2)) + ",";
+		sql += staffAccount + ");";
 		func.sqlExce(sql);
 	}
 	return false;
@@ -120,19 +122,88 @@ bool Deposit::checkCanBeTake()
 		return false;
 	else return true;
 }
-
-int Deposit::drawMoney(string account, double money,const Date & now)
+/*
+	取款,若返回值:
+	0: 取款成功
+	1: 则说明无法取款，定期已经取过一次;
+	2: 金额超过存款数 或 金额小于0
+	3: 无法取全额，未到期
+*/
+int Deposit::drawMoney(string account, double money,const Date & now, string staffAccount, double & profit,string & saveDate, int & type)
 {
+	//用户名， 取款，取款日期, 利息，存入时间，存款类型
+	//初始化
 	Func func;
 	this->readData();
-	if (money > principal || money < 0) {
+	Date now_t(now);
+	string sql = "";
+	if (this->type == 0) { //活期
+		//记录数据
+		sql = "insert into WithDraw (userAccount, year, month, day, money, staffAccount, depositID) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ",'" + staffAccount + "'," + to_string(id) + ");";
+		func.sqlExce(sql);
+		//传出信息
+		type = this->type;
+		profit = countProfit(money, this->type, date, now);
+		saveDate = to_string(date.get(0)) + "-" + to_string(date.get(1)) + "-" + to_string(date.get(2));
+		//全取删除该笔单款
+		if (money == principal) { //是否全部取走
+			sql = "delete from Deposit where id = " + to_string(id) + ";";
+			func.sqlExce(sql);
+		}
+		else {
+			principal -= money;
+			sql = "update Deposit set principal = " + to_string(principal) + " where id = " + to_string(id) + ";";
+			func.sqlExce(sql);
+		}
+		return 0;
+	}
+	else { //定期
+		Date takeDate(date);
+		takeDate.addMonth(this->type);
+		if (takeDate > now) {//到期
+			//记录数据
+			sql = "insert into WithDraw (userAccount, year, month, day, money, staffAccount, depositID) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ",'" + staffAccount + "'," + to_string(id) + ");";
+			func.sqlExce(sql);
+			//传出数据
+			type = this->type;
+			profit = countProfit(money, this->type, date, now);
+			saveDate = to_string(date.get(0)) + "-" + to_string(date.get(1)) + "-" + to_string(date.get(2));
+			if (money == principal) {
+				sql = "delete from Deposit where id = " + to_string(id) + ";";
+				func.sqlExce(sql);
+			}
+			else {
+				principal -= money;
+				sql = "update Deposit set principal = " + to_string(principal) + " where id = " + to_string(id) + ";";
+				func.sqlExce(sql);
+			}
+		}
+		else { //未到期
+			if (takeTimes == 1) { //已取过
+				return 1;
+			}
+			else {
+				if (money == principal) { //定期无法全额
+					return 3;
+				}
+				else {
+					sql = "insert into WithDraw (userAccount, year, month, day, money, staffAccount, depositID) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ",'" + staffAccount + "," + to_string(id) + "');";
+					func.sqlExce(sql);
+					principal -= money;
+					sql = "update Deposit set principal = " + to_string(principal) + ", takeTimes = 1 where id = " + to_string(id) + ";";
+					func.sqlExce(sql);
+				}
+			}
+		}
+	}
+	/*if (money > principal || money < 0) {
 		return 2;
 	}
-	if (money == this->principal) {
+	else if (money == this->principal) {
 		Date takeDate(date);
 		takeDate.addMonth(type);
 		if (takeDate > now || this->type == 0) {
-			string sql = "insert into WithDraw (userAccount, year, month, day, money) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ");";
+			string sql = "insert into WithDraw (userAccount, year, month, day, money, staffAccount, depositID) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ",'" + staffAccount + "," + to_string(id) +"');";
 			func.sqlExce(sql);
 			sql = "delete from Deposit where id = " + to_string(id) + ";";
 			func.sqlExce(sql);
@@ -142,7 +213,7 @@ int Deposit::drawMoney(string account, double money,const Date & now)
 			return 3;
 		}
 	}
-	if (checkCanBeTake()) {
+	else if (checkCanBeTake()) {
 		string sql = "insert into WithDraw (userAccount, year, month, day, money) values ('"+ account+ "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ");";
 		func.sqlExce(sql);
 		this->principal -= money;
@@ -150,7 +221,7 @@ int Deposit::drawMoney(string account, double money,const Date & now)
 		return 0;
 	}
 	else
-		return 1;
+		return 1;*/
 }
 
 double Deposit::getRecentEndDepoist(Date now)
@@ -206,9 +277,25 @@ int Deposit::settlement(Date now)
 	return 0;
 }
 
-double Deposit::countProfit(const Date & now, double money)
+double Deposit::countProfit(double principal, int type, Date date, Date now)
 {
-	double profit_t = profitRate[this->type];
+	//修改为取款时间
+	date.addMonth(type);
+	if (type == 0) { //活期
+		return principal * (now - date) * (profitRate[0] / 360);
+	}
+	else { // 定期
+		if (now > date) { //到期
+			double ans = principal * (profitRate[type] / 360) * 30 * type;
+			principal += ans;
+			ans += principal * (now - date) * (profitRate[0] / 360);
+			return ans;
+		}
+		else {
+			return principal * (now - date) * (profitRate[0] / 360);
+		}
+	}
+	/*double profit_t = profitRate[this->type];
 	profit_t = (profit_t / 360) * 30 * this->type;
 	Date now_t(now);
 	Date takeDate(date);
@@ -225,7 +312,7 @@ double Deposit::countProfit(const Date & now, double money)
 		days = now_t - takeDate;
 		profit_t = (profitRate[0] / 360) * days;
 		return profit_t * money;
-	}
+	}*/
 }
 
 double Deposit::getAllPrincipal()

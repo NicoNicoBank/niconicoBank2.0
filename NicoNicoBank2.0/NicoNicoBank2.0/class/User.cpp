@@ -297,7 +297,7 @@ bool User::userDepositDetail(string account, vector<int>& id, vector<int>& type,
 	return true;
 }
 
-bool User::userWithDrawDetail(string account, vector<Date>& date, vector<double>& money)
+bool User::userWithDrawDetail(string account, vector<Date>& date, vector<double>& money, vector<string> & staffAccount, vector <int> & depositID)
 {
 	Func func;
 	CppSQLite3DB db;
@@ -307,6 +307,8 @@ bool User::userWithDrawDetail(string account, vector<Date>& date, vector<double>
 	while (!q.eof()) {
 		date.push_back(Date(q.getIntField(2), q.getIntField(3), q.getIntField(4)));
 		money.push_back(q.getFloatField(5));
+		staffAccount.push_back(q.getStringField(6));
+		depositID.push_back(q.getIntField(7));
 		q.nextRow();
 	}
 	return true;

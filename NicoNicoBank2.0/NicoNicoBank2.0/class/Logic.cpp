@@ -58,26 +58,26 @@ bool Logic::userDepositDetail(string account, vector<int>& id, vector<int>& type
 
 
 
-bool Logic::userWithDrawDetail(string account, vector<Date>& date, vector<double>& money)
+bool Logic::userWithDrawDetail(string account, vector<Date>& date, vector<double>& money, vector<string> & staffAccount, vector <int> & depositID)
 {
 	User user;
-	user.userWithDrawDetail(account, date, money);
+	user.userWithDrawDetail(account, date, money,  staffAccount, depositID);
 	return true;
 }
 
-bool Logic::saveMoney(string account, int type, double principal, const Date & now)
+bool Logic::saveMoney(string account, int type, double principal, const Date & now, string staffAccount)
 {
-	Deposit deposit(account, type, principal, now);
+	Deposit deposit(account, type, principal, now, staffAccount);
 	deposit.save();
 	return true;
 }
 
-int Logic::drawMoney(string account, int id, double money, double & profit, const Date & now)
+int Logic::drawMoney(string account, int id, double money, const Date & now, string staffAccount, double & profit, string & saveDate, int & type)
 {
+	//用户名， 取款，取款日期, 利息，存入时间，存款类型
 	Deposit deposit;
 	deposit.setID(id);
-	int result = deposit.drawMoney(account, money, now);
-	profit = deposit.countProfit(now);
+	int result = deposit.drawMoney(account, money, now, staffAccount, profit, saveDate, type);
 	return result;
 }
 
@@ -172,11 +172,9 @@ bool Logic::checkAllString(vector<string> &strs)
 	return flag;
 }
 
-double Logic::countProfit(Date & now, int id)
+double Logic::countProfit(double principal, int type, const Date & date, const Date & now)
 {
 	Deposit deposit;
-	deposit.setID(id);
-	deposit.readData();
-	return deposit.countProfit(now);
+	return deposit.countProfit(principal, type, date, now);
 }
 

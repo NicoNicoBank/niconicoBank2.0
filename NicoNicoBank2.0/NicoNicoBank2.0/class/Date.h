@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 using namespace std;
 class Date {
 public:
@@ -25,6 +26,10 @@ public:
 	*/
 	int get(int type);
 	int get(int type) const;
+	/*
+	Éú³É year-month-dayµÄ×Ö·û´®
+	*/
+	string formatOut();
 	bool checkIllegle(int year, int month, int day);
 private:
 	bool IsLeapYear(int year);
