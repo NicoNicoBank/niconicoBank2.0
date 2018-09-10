@@ -134,3 +134,27 @@ bool Logic::getIDNumber(string account, string & IDNumber)
 	return true;
 }
 
+int Logic::judgeIdNumber(string & IDNumber)
+{
+	Func func;
+	return func.judgeIdNumber(IDNumber);
+}
+
+int Logic::judgePasswordStrength(string password)
+{
+	Func func;
+	return func.judgePasswordStrength(password);
+}
+
+bool Logic::checkPwd(string str)
+{
+	Func func;
+	return func.checkPwd(str);
+}
+
+bool Logic::checkText(string str)
+{
+	Func func;
+	return func.checkText(str);
+}
+

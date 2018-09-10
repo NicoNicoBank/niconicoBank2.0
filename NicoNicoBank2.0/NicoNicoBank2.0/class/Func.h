@@ -46,7 +46,7 @@ public:
 	int judgeIdNumber(string& IDNumber);
 
 	/*
-	传入密码（字符串），返回Int型的密码强度（0-6）依次增强
+	传入密码（字符串），返回Int型的密码强度（1-3）依次为（弱，中等，强）
 	*/
 	int judgePasswordStrength(string password);
 	/*

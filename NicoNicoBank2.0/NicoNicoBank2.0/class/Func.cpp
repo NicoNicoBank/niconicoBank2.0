@@ -133,13 +133,6 @@ string Func::getRandomstring(int length)
 	char ch[MAX_LENGTH];
 	for (int i = 0; i < length; ++i)
 	{
-		//int x = rand() % (sizeof(CCH) - 1); //这个方法不好, 因为许多随机数发生器的低位比特并不随机,
-
-//RAND MAX 在ANSI 里#define 在<stdlib.h>
-
-//RAND MAX 是个常数, 它告诉你C 库函数rand() 的固定范围。
-
-//不可以设RAND MAX 为其它的值, 也没有办法要求rand() 返回其它范围的值。
 		int x = rand() % 62;
 
 		ch[i] = CCH[x];
@@ -220,7 +213,7 @@ int Func::judgeIdNumber(string& IDNumber) {
 	}
 }
 
-//传入密码（字符串），返回Int型的密码强度（1-3）依次为（弱，中等，强），其中弱不可用于注册
+//传入密码（字符串），返回Int型的密码强度（1-3）依次为（弱，中等，强）
 int Func::judgePasswordStrength(string password) {
 	int i, score;
 	score = 0;
@@ -310,10 +303,10 @@ bool Func::checkPwd(string str) {
 //检测输入的字符串，通过返回true，否则返回false。不能包含指定字符 { ' ', '#', '-',  ';'}
 bool Func::checkText(string str) {
 	int length = str.length();
-	char blackList[] = { ' ', '#', '-',  ';' };
+	char blackList[] = { ' ', '#', '-',  ';', '*' };
 
 	for (int i = 0; i < length; i++) {
-		for (int t = 0; t < 4; t++) {
+		for (int t = 0; t < 5; t++) {
 			if (str[i] == blackList[t])
 				return false;
 		}
