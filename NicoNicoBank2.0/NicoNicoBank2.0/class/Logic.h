@@ -88,5 +88,15 @@ public:
 	检测输入的字符串，通过返回true，否则返回false。不能包含指定字符 { ' ', '#', '-',  ';'}
 	*/
 	bool checkText(string str);
+
+	/*
+	通用检测，对所有值进行检测
+	*/
+	bool checkAllString(vector <string> & strs);
+
+	/*
+	计算当前可获得利息
+	*/
+	double countProfit(Date & now, int id);
 };
 

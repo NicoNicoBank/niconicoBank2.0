@@ -10,9 +10,6 @@ Date::Date(int year, int month, int day)
 		_month = month;
 		_day = day;
 	}
-	else {
-		cout << "the date is illegal\n";
-	}
 }
 
 Date::Date(const Date& date) : _year(date._year), _month(date._month), _day(date._day) {}
@@ -182,6 +179,16 @@ int Date::get(int type) const
 		return NULL;
 	}
 	return 0;
+}
+
+bool Date::checkIllegle(int year, int month, int day)
+{
+	if (year >= 0 && (month >= 0 && month < 13) &&
+		(day >= 0 && day <= GetDaysInMonth(year, month)))
+	{
+		return true;
+	}
+	else return false;
 }
 
 bool Date::IsLeapYear(int year)

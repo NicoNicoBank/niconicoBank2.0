@@ -48,7 +48,7 @@ public:
 	/*
 	计算当前类中单子的利息值
 	*/
-	double countProfit(const Date & now);
+	double countProfit(const Date & now, double money = 0);
 	/*
 	修改利率
 	*/

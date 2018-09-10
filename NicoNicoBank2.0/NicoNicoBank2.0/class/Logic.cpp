@@ -158,3 +158,25 @@ bool Logic::checkText(string str)
 	return func.checkText(str);
 }
 
+bool Logic::checkAllString(vector<string> &strs)
+{
+	bool flag = true;
+	int size = strs.size();
+	for (int i = 0; i < size; i++) {
+		string & str = strs[i];
+		if (str.length() <= 0 || str.length() > 100 || !checkText(str)){
+			flag = false;
+			break;
+		}
+	}
+	return flag;
+}
+
+double Logic::countProfit(Date & now, int id)
+{
+	Deposit deposit;
+	deposit.setID(id);
+	deposit.readData();
+	return deposit.countProfit(now);
+}
+

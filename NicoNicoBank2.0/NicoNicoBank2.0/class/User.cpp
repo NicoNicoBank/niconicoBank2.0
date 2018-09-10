@@ -216,6 +216,7 @@ bool User::verify(string account, string pwd)
 	db.open(func.getDataBaseLocation().c_str());
 	string sql_temp = "select * from user where account =  '"+account+"';";
 	CppSQLite3Query q = db.execQuery(sql_temp.c_str());
+	if (q.getIntField(9) == 1) return false;
 	if (q.fieldValue(3) == NULL) return false;
 	if (MD5(pwd).toStr() == q.fieldValue(3)) {
 		this->account = account;

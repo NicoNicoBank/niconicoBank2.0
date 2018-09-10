@@ -25,7 +25,7 @@ public:
 	*/
 	int get(int type);
 	int get(int type) const;
-
+	bool checkIllegle(int year, int month, int day);
 private:
 	bool IsLeapYear(int year);
 	int GetDaysInMonth(int year, int month);

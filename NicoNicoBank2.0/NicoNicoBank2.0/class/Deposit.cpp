@@ -206,17 +206,25 @@ int Deposit::settlement(Date now)
 	return 0;
 }
 
-double Deposit::countProfit(const Date & now)
+double Deposit::countProfit(const Date & now, double money)
 {
 	double profit_t = profitRate[this->type];
 	profit_t = (profit_t / 360) * 30 * this->type;
 	Date now_t(now);
 	Date takeDate(date);
 	takeDate.addMonth(type);
+	this->principal = profit_t * this->principal;
+
+	int days = takeDate - now_t;
+	profit_t = (profitRate[0] / 360) * days;
+
 	if (type == 0 || now_t > takeDate)
 		return profit_t * this->principal;
 	else {
-		return 0;
+		takeDate = date;
+		days = now_t - takeDate;
+		profit_t = (profitRate[0] / 360) * days;
+		return profit_t * money;
 	}
 }
 
