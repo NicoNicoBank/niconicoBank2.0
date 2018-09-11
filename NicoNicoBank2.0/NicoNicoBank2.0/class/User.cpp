@@ -350,17 +350,28 @@ string User::getIDNumberFromDatabase(string account)
 	return IDNumber;
 }
 
-int User::getAccountInfo(string vagueAccount, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate)
+int User::getAccountInfo(string searchText, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate, vector <string> & staffAccount, int select)
 {
 	account.clear();
 	userName.clear();
 	address.clear();
 	IDNumber.clear();
 	openDate.clear();
+	staffAccount.clear();
 	Func func;
 	CppSQLite3DB db;
 	db.open(func.getDataBaseLocation().c_str());
-	string sql = "select * from user where account like '%" + vagueAccount + "%';";
+	// 0. 账户名 1.用户姓名 2.地址 3.身份证号 4.开户人员工号
+	string selectStr = "";
+	switch (select) {
+	case 0: selectStr = "account"; break;
+	case 1: selectStr = "userName"; searchText = func.ASCII2UTF_8(searchText); break;
+	case 2: selectStr = "address"; searchText = func.ASCII2UTF_8(searchText); break;
+	case 3: selectStr = "IDNumber"; break;
+	case 4: selectStr = "staffAccount"; break;
+	default:selectStr = "account"; break;
+	}
+	string sql = "select * from user where " + selectStr + " like '%" + searchText + "%';";
 	CppSQLite3Query q = db.execQuery(sql.c_str());
 	while (!q.eof()) {
 		string temp = q.getStringField(1);
@@ -373,6 +384,8 @@ int User::getAccountInfo(string vagueAccount, vector<string> & account, vector<s
 		IDNumber.push_back(func.UTF_82ASCII(temp));
 		Date dateTemp(q.getIntField(6), q.getIntField(7), q.getIntField(8));
 		openDate.push_back(func.UTF_82ASCII(dateTemp.formatOut()));
+		temp = q.getStringField(9);
+		staffAccount.push_back(temp);
 		q.nextRow();
 	}
 	return 1;

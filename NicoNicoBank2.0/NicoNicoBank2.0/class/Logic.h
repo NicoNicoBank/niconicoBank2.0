@@ -103,8 +103,8 @@ public:
 	*/
 	string getRandomAccount();
 	/*
-	模糊获取账户信息
+	模糊获取账户信息 // select: 0. 账户名 1.用户姓名 2.地址 3.身份证号 4.开户人员工号
 	*/
-	int getAccountInfo(string vagueAccount, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate);
+	int getAccountInfo(string searchText, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate, vector <string> & staffAccount, int select);
 };
 

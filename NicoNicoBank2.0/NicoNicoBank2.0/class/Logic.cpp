@@ -172,10 +172,11 @@ string Logic::getRandomAccount()
 	return func.getRandomstring(5);
 }
 
-int Logic::getAccountInfo(string vagueAccount, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate)
+int Logic::getAccountInfo(string searchText, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate, vector <string> & staffAccount, int select)
 {
+	// 0. 账户名 1.用户姓名 2.地址 3.身份证号 4.开户人员工号
 	User user;
-	user.getAccountInfo(vagueAccount, account, userName, address, IDNumber, openDate);
+	user.getAccountInfo(searchText, account, userName, address, IDNumber, openDate, staffAccount, select);
 	return 1;
 }
 

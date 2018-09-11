@@ -146,9 +146,6 @@
     <ClCompile Include="class\User.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="class\changeType.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="class\CurrentDeposit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

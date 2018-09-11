@@ -226,7 +226,6 @@
     <ClCompile Include="Cdepositinfoprint.cpp" />
     <ClCompile Include="CdueDlg.cpp" />
     <ClCompile Include="Cinfochange.cpp" />
-    <ClCompile Include="class\changeType.cpp" />
     <ClCompile Include="class\CurrentDeposit.cpp" />
     <ClCompile Include="class\Date.cpp" />
     <ClCompile Include="class\Deposit.cpp" />

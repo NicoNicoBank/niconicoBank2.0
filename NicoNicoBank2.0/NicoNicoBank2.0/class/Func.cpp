@@ -8,7 +8,7 @@
 #include <ctime>
 #include <CppSQLite3.h>
 const int MAX_LENGTH = 1000;
-const char CCH[] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const char CCH[] = "0123456789";
 
 
 Func::Func()
@@ -131,9 +131,10 @@ string Func::getRandomstring(int length)
 {
 	srand((unsigned)time(NULL));
 	char ch[MAX_LENGTH];
+	int chLen = strlen(ch);
 	for (int i = 0; i < length; ++i)
 	{
-		int x = rand() % 62;
+		int x = rand() % chLen;
 
 		ch[i] = CCH[x];
 	}
