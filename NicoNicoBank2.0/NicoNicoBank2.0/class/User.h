@@ -70,6 +70,15 @@ public:
 	*/
 	string getIDNumberFromDatabase(string account);
 
+	/*
+	获取用户信息列表
+	*/
+	int getAccountInfo(string vagueAccount, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate);
+
+	/*
+	注册新用户
+	*/
+	int signInUser(string account, string userName, string password, string address, string IDNumber, const Date & now, string staffAccount);
 	int getId();
 	void setId(int _id);
 

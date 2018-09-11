@@ -93,23 +93,6 @@ bool User::readData(string query)
 		day_t = q.getIntField(8);
 
 	this->openDate.setDate(year_t, month_t, day_t);
-
-	
-	if (q.fieldValue(9) == NULL)
-		year_t = 0;
-	else
-		year_t = q.getIntField(9);
-	if (q.fieldValue(10) == NULL)
-		month_t = 0;
-	else
-		month_t = q.getIntField(10);
-
-	if (q.fieldValue(11) == NULL)
-		day_t = 0;
-	else
-		day_t = q.getIntField(11);
-
-	this->lostDate.setDate(year_t, month_t, day_t);
 	return true;
 }
 
@@ -121,6 +104,10 @@ bool User::save()
 	if ( this->id != -1 && this->account != "" && this->isExist(this->account)) {
 		flag = true;
 		//sql = "update user set account = ?,userName = ?,password = ?,address = ?,IDNumber = ?,openDate_year = ?,openDate_month = ?,openDate_day = ?,isLost = ?,lostDate_year = ?,lostDate_month = ?,lostDate_day = ? where id = ?;";
+		//sql = "update user set password = '" + MD5(this->password).toStr() +"',";
+		//sql += "account = '" + this->account + "',";
+		//sql += "address = '" + func.ASCII2UTF_8(this->address) + "',"
+		//sql += "' where account = '" +  + "';"; 
 		sql = "update user set password = '" + MD5(this->password).toStr() + "' where account = '" + this->account + "';";
 		func.sqlExce(sql);
 		sql = "update user set address = '" + func.ASCII2UTF_8(this->address) + "' where account = '" + this->account + "';";
@@ -138,6 +125,7 @@ bool User::save()
 	}
 	else {
 		//sql = "insert into user (account, userName, password, address, IDNumber, openDate_year,openDate_month, openDate_day, isLost, lostDate_year, lostDate_month, lostDate_day) values  (";
+		
 		sql = "insert into user (account) values (";
 		sql += "'" + this->account + "');";
 		func.sqlExce(sql);
@@ -360,6 +348,51 @@ string User::getIDNumberFromDatabase(string account)
 	q.finalize();
 	db.close();
 	return IDNumber;
+}
+
+int User::getAccountInfo(string vagueAccount, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate)
+{
+	account.clear();
+	userName.clear();
+	address.clear();
+	IDNumber.clear();
+	openDate.clear();
+	Func func;
+	CppSQLite3DB db;
+	db.open(func.getDataBaseLocation().c_str());
+	string sql = "select * from user where account like '%" + vagueAccount + "%';";
+	CppSQLite3Query q = db.execQuery(sql.c_str());
+	while (!q.eof()) {
+		string temp = q.getStringField(1);
+		account.push_back(func.UTF_82ASCII(temp));
+		temp = q.getStringField(2);
+		userName.push_back(func.UTF_82ASCII(temp));
+		temp = q.getStringField(4);
+		address.push_back(func.UTF_82ASCII(temp));
+		temp = q.getStringField(5);
+		IDNumber.push_back(func.UTF_82ASCII(temp));
+		Date dateTemp(q.getIntField(6), q.getIntField(7), q.getIntField(8));
+		openDate.push_back(func.UTF_82ASCII(dateTemp.formatOut()));
+		q.nextRow();
+	}
+	return 1;
+}
+
+int User::signInUser(string account, string userName, string password, string address, string IDNumber, const Date & now, string staffAccount)
+{
+	Func func;
+	string sql = "insert into user(account, userName, password, address, IDNumber, openDate_year, openDate_month, openDate_day,staffAccount) values(";
+	sql += "'" + account + "',";
+	sql += "'" + func.ASCII2UTF_8(userName) + "',";
+	sql += "'" + MD5(password).toStr() + "',";
+	sql += "'" + func.ASCII2UTF_8(address) + "',";
+	sql += "'" + IDNumber + "',";
+	sql += to_string(now.get(0)) + ",";
+	sql += to_string(now.get(1)) + ",";
+	sql += to_string(now.get(2)) + ",";
+	sql += "'" + staffAccount + "');";
+	func.sqlExce(sql);
+	return 1;
 }
 
 int User::getId()

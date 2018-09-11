@@ -206,6 +206,7 @@
     <ClInclude Include="Copenaccount.h" />
     <ClInclude Include="Creportloss.h" />
     <ClInclude Include="Cstaffregist.h" />
+    <ClInclude Include="CUserInfo.h" />
     <ClInclude Include="Cwithdrainfoprint.h" />
     <ClInclude Include="CwithdrawalDlg2.h" />
     <ClInclude Include="database\CppSQLite3.h" />
@@ -239,6 +240,7 @@
     <ClCompile Include="Copenaccount.cpp" />
     <ClCompile Include="Creportloss.cpp" />
     <ClCompile Include="Cstaffregist.cpp" />
+    <ClCompile Include="CUserInfo.cpp" />
     <ClCompile Include="Cwithdrainfoprint.cpp" />
     <ClCompile Include="CwithdrawalDlg2.cpp" />
     <ClCompile Include="database\CppSQLite3.cpp" />

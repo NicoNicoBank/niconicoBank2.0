@@ -15,7 +15,7 @@ Logic::~Logic()
 
 bool Logic::verifyStaff(string account, string pwd)
 {
-	Staff staff("", account, pwd);
+	Staff staff(account, pwd, "");
 	if (staff.verify()) return true;
 	return false;
 }
@@ -27,25 +27,16 @@ bool Logic::verifyUser(string account, string pwd)
 	return false;
 }
 
-bool Logic::signInUser(string userName, string password, string address, string IDNumber,const Date & now, map<string, string>& result)
+bool Logic::signInUser(string & account, string userName, string password, string address, string IDNumber,const Date & now, string staffAccount)
 {
 	Func func;
 	User user;
 	user.setId(-1);
-	string account = "";
 	while (1) {
 		account = func.getRandomstring(5);
 		if (!user.isExist(account)) break;
 	}
-	result["account"] = account;
-	user.setAccount(account);
-	user.setPassword(password);
-	user.setAddress(address);
-	user.setIDNumber(IDNumber);
-	user.setUserName(userName);
-	user.initDate();
-	user.setOpenDate(now);
-	user.save();
+	user.signInUser(account, userName, password, address, IDNumber, now, staffAccount);
 	return true;
 }
 
@@ -179,5 +170,12 @@ string Logic::getRandomAccount()
 {
 	Func func;
 	return func.getRandomstring(5);
+}
+
+int Logic::getAccountInfo(string vagueAccount, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate)
+{
+	User user;
+	user.getAccountInfo(vagueAccount, account, userName, address, IDNumber, openDate);
+	return 1;
 }
 

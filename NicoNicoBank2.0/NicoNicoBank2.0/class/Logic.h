@@ -19,9 +19,9 @@ public:
 	bool verifyUser(string account, string pwd);
 	/*
 	开设新的账户，
-	map中有两个可用字段，account ->生成的用户账户  error -> 错误信息
+	第一个account会随机生成一个用户账户
 	*/
-	bool signInUser(string userName, string password, string address, string IDNumber,const Date & now, map <string, string> & result);
+	bool signInUser(string & account, string userName, string password, string address, string IDNumber, const Date & now, string staffAccount);
 	/*
 	获取用户存款信息清单
 	*/
@@ -102,5 +102,9 @@ public:
 	获取随机账户
 	*/
 	string getRandomAccount();
+	/*
+	模糊获取账户信息
+	*/
+	int getAccountInfo(string vagueAccount, vector<string> & account, vector<string> & userName, vector<string> & address, vector<string> & IDNumber, vector<string> & openDate);
 };
 
