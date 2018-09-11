@@ -6,7 +6,7 @@ class Staff
 {
 public:
 	Staff();
-	Staff(string name, string jobNumber, string password, int id = -1);
+	Staff(string jobNumber, string password, string name, int id = -1);
 	~Staff();
 	bool readData(string query="id");
 	/*

@@ -84,8 +84,8 @@ int Logic::drawMoney(string account, int id, double money, const Date & now, str
 bool Logic::signInStaff(string account, string pwd, string name)
 {
 	Staff staff(account, pwd, name);
-	staff.save();
-	return true;
+	if (staff.save())return true;
+	return false;
 }
 
 double Logic::getMoneyNeed(const Date & now)
@@ -100,14 +100,11 @@ double Logic::getAllPrincipal()
 	return deposit.getAllPrincipal();
 }
 
-bool Logic::setAccountLost(string account, string pwd, const Date & now)
+bool Logic::setAccountLost(string account, string newAccount, string pwd, const Date & now)
 {
-	if (verifyUser(account, pwd)) {
-		User user;
-		user.setLost(account, now);
-		return true;
-	}
-	return false;
+	User user;
+	user.setLost(account, newAccount, pwd, now);
+	return true;
 }
 
 bool Logic::setAccountAddress(string account, string address)
@@ -176,5 +173,11 @@ double Logic::countProfit(double principal, int type, const Date & date, const D
 {
 	Deposit deposit;
 	return deposit.countProfit(principal, type, date, now);
+}
+
+string Logic::getRandomAccount()
+{
+	Func func;
+	return func.getRandomstring(5);
 }
 

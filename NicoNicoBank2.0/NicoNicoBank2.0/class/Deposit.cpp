@@ -187,7 +187,7 @@ int Deposit::drawMoney(string account, double money,const Date & now, string sta
 					return 3;
 				}
 				else {
-					sql = "insert into WithDraw (userAccount, year, month, day, money, staffAccount, depositID) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ",'" + staffAccount + "," + to_string(id) + "');";
+					sql = "insert into WithDraw (userAccount, year, month, day, money, staffAccount, depositID) values ('" + account + "'," + to_string(now.get(0)) + "," + to_string(now.get(1)) + "," + to_string(now.get(2)) + "," + to_string(money) + ",'" + staffAccount + "'," + to_string(id) + ");";
 					func.sqlExce(sql);
 					principal -= money;
 					sql = "update Deposit set principal = " + to_string(principal) + ", takeTimes = 1 where id = " + to_string(id) + ";";

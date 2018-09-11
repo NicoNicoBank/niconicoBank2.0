@@ -267,10 +267,24 @@ void User::print(string account)
 	db.close();
 }
 
-void User::setLost(string account,const Date & now)
+void User::setLost(string account, string newAccount, string pwd, const Date & now)
 {
+	//*Func func;
+	//string sql = "update user set isLost = 1, lostDate_year = " + to_string(now.get(0)) +", lostDate_month = " + to_string(now.get(1)) + ", lostDate_day = " + to_string(now.get(2)) + " where account = '" + account + "';";
 	Func func;
-	string sql = "update user set isLost = 1, lostDate_year = " + to_string(now.get(0)) +", lostDate_month = " + to_string(now.get(1)) + ", lostDate_day = " + to_string(now.get(2)) + " where account = '" + account + "';";
+	CppSQLite3DB db;
+	db.open(func.getDataBaseLocation().c_str());
+	string sql = "select id from Deposit where userAccount = '" + account + "';";
+	CppSQLite3Query q = db.execQuery(sql.c_str());
+	while (!q.eof()) {
+		int id = q.getIntField(0);
+		sql = "update Deposit set account = '" + newAccount + "' where id = " + to_string(id) + ";";
+		func.sqlExce(sql);
+		q.nextRow();
+	}
+	db.close();
+	q.finalize();
+	sql = "update user set account = '" + newAccount + "', password = '" + MD5(pwd).toStr() + "' where account = '" + account + "';";
 	func.sqlExce(sql);
 }
 

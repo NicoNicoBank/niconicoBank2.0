@@ -57,7 +57,7 @@ public:
 	/*
 	挂失某一账户, 输入账户密码，检测其正确性，以便于挂失
 	*/
-	bool setAccountLost(string account, string pwd, const Date & now);
+	bool setAccountLost(string account, string newAccount, string pwd, const Date & now);
 	/*
 	修改地址
 	*/
@@ -98,5 +98,9 @@ public:
 	计算当前可获得利息
 	*/
 	double countProfit(double principal, int type, const Date & date, const Date & now);
+	/*
+	获取随机账户
+	*/
+	string getRandomAccount();
 };
 

@@ -13,7 +13,7 @@ Staff::Staff()
 	this->password = "";
 }
 
-Staff::Staff(string name, string jobNumber, string password, int id)
+Staff::Staff(string jobNumber, string password, string name, int id)
 {
 	this->name = name;
 	this->jobNumber = jobNumber;
@@ -64,6 +64,11 @@ bool Staff::save()
 	string sql = "";
 	bool flag = false;
 	string err_msg;
+	CppSQLite3DB db;
+	db.open(func.getDataBaseLocation().c_str());
+	sql = "select * from Staff where jobNumber = '" + jobNumber + "';";
+	CppSQLite3Query q = db.execQuery(sql.c_str());
+	if (!q.eof()) return false;
 	if (id != -1) {
 		flag = true;
 		sql = "update Staff set ";
@@ -71,14 +76,12 @@ bool Staff::save()
 		sql += "name = '" + func.ASCII2UTF_8(this->name) +"',";
 		sql += "password = '" + this->password + "' ";
 		sql += "where id = " + to_string(this->id) + ";";
-
 	}
 	else {
 		sql = "insert into Staff (jobNumber, name, password) values ";
 		sql += "('" + this->jobNumber + "','" + func.ASCII2UTF_8(this->name) + "','" + MD5(this->password).toStr() + "');";
 	}
-	CppSQLite3DB db;
-	db.open(func.getDataBaseLocation().c_str());
+	
 	db.execDML(sql.c_str());
 	db.close();
 	return true;

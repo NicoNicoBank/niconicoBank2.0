@@ -41,7 +41,7 @@ public:
 	/*
 	账户挂失函数，对指定账户进行挂失
 	*/
-	void setLost(string account, const Date & now);
+	void setLost(string account, string newAccount, string pwd, const Date & now);
 	/*
 	取消挂失函数，对指定账户设置为未挂失状态
 	*/
