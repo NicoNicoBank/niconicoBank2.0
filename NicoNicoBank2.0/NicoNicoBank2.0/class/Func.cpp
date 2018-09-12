@@ -131,7 +131,7 @@ string Func::getRandomstring(int length)
 {
 	srand((unsigned)time(NULL));
 	char ch[MAX_LENGTH];
-	int chLen = strlen(ch);
+	int chLen = strlen(CCH);
 	for (int i = 0; i < length; ++i)
 	{
 		int x = rand() % chLen;
