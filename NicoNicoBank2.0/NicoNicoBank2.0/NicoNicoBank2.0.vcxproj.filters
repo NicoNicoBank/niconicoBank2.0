@@ -227,5 +227,8 @@
     <Image Include="picture\manyMoney.ico">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="picture\bitmap4.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

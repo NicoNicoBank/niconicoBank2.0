@@ -263,6 +263,7 @@
     <Image Include="picture\bigLogo.ico" />
     <Image Include="picture\bitmap1.bmp" />
     <Image Include="picture\bitmap2.bmp" />
+    <Image Include="picture\bitmap4.bmp" />
     <Image Include="picture\logo.ico" />
     <Image Include="picture\manyMoney.bmp" />
     <Image Include="picture\manyMoney.ico" />
