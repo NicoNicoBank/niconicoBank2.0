@@ -260,6 +260,12 @@
     <None Include="res\NicoNicoBank20.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="picture\bigLogo.ico" />
+    <Image Include="picture\bitmap1.bmp" />
+    <Image Include="picture\bitmap2.bmp" />
+    <Image Include="picture\logo.ico" />
+    <Image Include="picture\manyMoney.bmp" />
+    <Image Include="picture\manyMoney.ico" />
     <Image Include="res\NicoNicoBank2.0.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

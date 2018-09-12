@@ -232,19 +232,19 @@ int Func::judgePasswordStrength(string password) {
 	{
 		if (password[i] >= 'a' && password[i] <= 'z')
 		{
-			flagSmall = 1;
+			flagSmall += 1;
 		}
 		else if (password[i] >= 'A' && password[i] <= 'Z')
 		{
-			flagBig = 1;
+			flagBig += 1;
 		}
 		else if (password[i] >= '0' && password[i] <= '9')
 		{
-			flagNum = 1;
+			flagNum += 1;
 		}
 		else
 		{
-			flagOther = 1;
+			flagOther += 1;
 		}
 	}
 
@@ -314,4 +314,13 @@ bool Func::checkText(string str) {
 	}
 
 	return true;
+}
+
+bool Func::checkWithdrawalMoney(string & money)
+{
+	if (money.length() > 20)
+		return false;//返回0，超出长度限制
+	regex reg1("[0-9]+([.][0-9]{1,2})?", regex_constants::extended);//正则表达式，匹配18位身份证
+	smatch result;
+	return (regex_match(money, result, reg1));
 }

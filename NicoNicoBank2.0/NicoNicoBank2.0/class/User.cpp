@@ -333,7 +333,7 @@ void User::changePwd(string account, string newPwd)
 void User::changeAddress(string account, string address)
 {
 	Func func;
-	string sql = "update user set address = '" + address + "' where account = '" + account + "';";
+	string sql = "update user set address = '" + func.ASCII2UTF_8(address) + "' where account = '" + account + "';";
 	func.sqlExce(sql);
 }
 

@@ -209,5 +209,23 @@
     <Image Include="res\NicoNicoBank2.0.ico">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="picture\logo.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\bigLogo.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\bitmap2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\manyMoney.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\manyMoney.ico">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

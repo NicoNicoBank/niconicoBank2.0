@@ -57,4 +57,9 @@ public:
 	检测输入的字符串，通过返回true，否则返回false。不能包含指定字符 { ' ', '#', '-',  ';'}
 	*/
 	bool checkText(string str);
+
+	/*
+	检测金额合法
+	*/
+	bool checkWithdrawalMoney(string& money);
 };
