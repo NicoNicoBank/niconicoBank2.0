@@ -230,5 +230,23 @@
     <Image Include="picture\bitmap4.bmp">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="picture\back.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\back24.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\back24plus.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\back2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\back2plus.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="picture\back2no.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>
