@@ -74,7 +74,7 @@ bool Deposit::save()
 		sql += to_string(end.get(0)) + ",";
 		sql += to_string(end.get(1)) + ",";
 		sql += to_string(end.get(2)) + ",";
-		sql += staffAccount + ");";
+		sql += +"'" + staffAccount + "');";
 		func.sqlExce(sql);
 	}
 	return false;
