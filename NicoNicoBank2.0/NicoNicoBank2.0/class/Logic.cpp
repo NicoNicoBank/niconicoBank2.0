@@ -180,3 +180,7 @@ int Logic::getAccountInfo(string searchText, vector<string> & account, vector<st
 	return 1;
 }
 
+bool Logic::isProcessExist() {
+	Func func;
+	return func.isProcessExist();
+}

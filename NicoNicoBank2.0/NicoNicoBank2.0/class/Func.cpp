@@ -7,6 +7,8 @@
 #include <vector>
 #include <ctime>
 #include <CppSQLite3.h>
+#include <windows.h> 
+#include <tlhelp32.h>
 const int MAX_LENGTH = 1000;
 const char CCH[] = "0123456789";
 
@@ -323,4 +325,73 @@ bool Func::checkWithdrawalMoney(string & money)
 	regex reg1("[0-9]+([.][0-9]{1,2})?", regex_constants::extended);//正则表达式，匹配18位身份证
 	smatch result;
 	return (regex_match(money, result, reg1));
+}
+
+
+bool Func::isProcessExist()
+{
+	HANDLE hProcessSnap;
+	PROCESSENTRY32 pe32;
+	DWORD dwPid = 0;
+	int nProcCount = 0;
+
+	// 截取系统中运行进程的快照
+	hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (hProcessSnap == INVALID_HANDLE_VALUE)//若句柄无效
+	{
+		return false;
+	}
+
+	pe32.dwSize = sizeof(PROCESSENTRY32);
+
+	if (!Process32First(hProcessSnap, &pe32))
+	{
+		CloseHandle(hProcessSnap);          // 释放截取的系统快照对象
+		return false;
+	}
+
+	// 获取自己程序的进程名，用于比对
+	TCHAR szFileFullPath[_MAX_PATH] = { 0 };
+
+	::GetModuleFileName(NULL, static_cast<LPTSTR>(szFileFullPath), _MAX_PATH);
+
+	int iLength = 0;
+	char szFullPath[_MAX_PATH] = { 0 };
+	//获取字节长度
+	iLength = WideCharToMultiByte(CP_ACP, 0, szFileFullPath, -1, NULL, 0, NULL, NULL);
+	//将tchar值赋给_char
+	WideCharToMultiByte(CP_ACP, 0, szFileFullPath, -1, szFullPath, iLength, NULL, NULL);
+
+	std::string strProcPath = szFullPath;
+	// 得到自身进程名
+	std::string szProcName = strProcPath.substr(strProcPath.find_last_of("\\") + 1);
+
+	bool bRet = false;
+	char szPeProcName[_MAX_PATH] = { 0 };
+	do
+	{
+		// 遍历进程快照，比对是否有同名进程
+		memset(szPeProcName, 0, _MAX_PATH);
+
+		// wchar 转 char*
+		sprintf(szPeProcName, "%ws", pe32.szExeFile);
+
+		if (0 == strcmp(szProcName.c_str(), szPeProcName))
+		{
+			dwPid = pe32.th32ProcessID;
+
+			++nProcCount;
+			if (nProcCount > 1)
+			{
+				// 不止有一个进程
+				bRet = true;
+				break;
+			}
+		}
+
+	} while (Process32Next(hProcessSnap, &pe32));
+
+	CloseHandle(hProcessSnap);       // 释放截取的系统快照对象
+
+	return bRet;
 }

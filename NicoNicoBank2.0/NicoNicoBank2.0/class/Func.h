@@ -62,4 +62,9 @@ public:
 	检测金额合法
 	*/
 	bool checkWithdrawalMoney(string& money);
+
+	/*
+	检测软件实例开启数量
+	*/
+	bool isProcessExist();
 };
